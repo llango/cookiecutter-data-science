@@ -2,10 +2,6 @@
 
 _一个逻辑合理、标准且灵活的项目结构，用于进行和共享数据科学工作。_
 
-
-#### [项目首页](http://drivendata.github.io/cookiecutter-data-science/)
-
-
 ### 使用cookiecutter 模板的依赖:
 -----------
  - Python 2.7 or 3.5+
@@ -81,7 +77,7 @@ $ conda install cookiecutter
 
 ## 贡献
 
-欢迎贡献！ [有关指南，请参阅文档](https://drivendata.github.io/cookiecutter-data-science/#contributing).
+欢迎贡献！
 
 ### 安装依赖
 ------------
