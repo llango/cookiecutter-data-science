@@ -1,0 +1,12 @@
+site_name: Cookiecutter 数据科学项目
+site_description: Python 数据科学项目的项目模板和目录结构。 
+site_favicon: favicon.ico
+repo_url: https://github.com/llango/cookiecutter-data-science
+edit_uri: edit/master/docs/docs
+copyright: 项目由 <a target=_blanks href="https://www.github.com/llango">凉葱落</a>维护。
+google_analytics: ['UA-54096005-4', 'auto']
+theme: shadocs
+extra_css:
+  - css/extra.css
+pages:
+  - Home: index.md

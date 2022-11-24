@@ -1,0 +1,5 @@
+mkdocs
+shadocs
+mkdocs-cinder
+cookiecutter
+pytest

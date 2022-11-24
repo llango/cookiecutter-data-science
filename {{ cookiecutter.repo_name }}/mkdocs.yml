@@ -1,0 +1,43 @@
+site_name: {{ cookiecutter.project_name }}
+site_author: {{ cookiecutter.author_name }}
+site_description: {{ cookiecutter.description }} 
+site_favicon: favicon.ico
+
+repo_url: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_name }}
+edit_uri: edit/master/docs/docs
+copyright: 项目由 <a target=_blanks href="https://www.github.com/{{ cookiecutter.github_username }}">{{ cookiecutter.author_name }}</a>维护。
+
+theme:
+  name: shadocs
+  logo: '/images/logo.png'
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.instant
+    - navigation.tabs
+  language: cn
+  highlightjs: true
+  hljs_languages:
+    - python 
+    - javascript
+    - shell
+    - django
+  
+
+# Footer
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/{{ cookiecutter.github_username }}
+      name: {{ cookiecutter.github_username }} 
+
+markdown_extensions:
+  - admonition
+  - toc:
+      toc_depth: 2
+      permalink: True
+
+# Page tree
+nav:
+  - 首页: index.md
+  - 版本: version.md
