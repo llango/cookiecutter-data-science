@@ -132,21 +132,21 @@ $ conda install cookiecutter
 项目结构中隐含了一些意见，这些意见是根据我们在数据科学项目上合作时对什么有效和什么无效的经验得出的。 有些意见是关于工作流程的，有些意见是关于让生活更轻松的工具的。 以下是构建该项目的一些信念——如果您有任何想法，请 贡献或分享 。
 数据是不可变的
 
-永远不要编辑原始数据，尤其不要手动编辑，尤其不要在 Excel 中编辑。 不要覆盖您的原始数据。 不要保存原始数据的多个版本。 将数据（及其格式）视为不可变的。 您编写的代码应该通过管道将原始数据移动到您的最终分析。 您不必每次想制作新图形时都运行所有步骤（请参阅 分析是 DAG ），但任何人都应该能够仅使用中的代码重现最终产品 src和数据在 data/raw.
+永远不要编辑原始数据，尤其不要手动编辑，尤其不要在 Excel 中编辑。 不要覆盖您的原始数据。 不要保存原始数据的多个版本。 将数据（及其格式）视为不可变的。 您编写的代码应该通过管道将原始数据移动到您的最终分析。 您不必每次想制作新图形时都运行所有步骤（请参阅 分析是 DAG ），但任何人都应该能够仅使用中的代码重现最终产品 `src` 和数据在 `data/raw`。
 
-此外，如果数据是不可变的，则它不需要像代码那样需要源代码控制。 因此， 默认情况下，数据文件夹包含在 .gitignore文件。 如果您有很少更改的少量数据，您可能希望将数据包含在存储库中。 Github 目前会在文件超过 50MB 时发出警告并拒绝超过 100MB 的文件。 存储/同步大数据的其他一些选项包括 AWS S3 （例如， 带有同步工具的 s3cmd)、 Git 大文件存储 、 Git 附件 和 dat 。 目前默认情况下，我们要求一个 S3 存储桶并使用 AWS CLI 同步数据 data与服务器的文件夹。
+此外，如果数据是不可变的，则它不需要像代码那样需要源代码控制。 因此， 默认情况下，数据文件夹包含在`.gitignore`文件。 如果您有很少更改的少量数据，您可能希望将数据包含在存储库中。 Github 目前会在文件超过 50MB 时发出警告并拒绝超过 100MB 的文件。 存储/同步大数据的其他一些选项包括 AWS S3 （例如， 带有同步工具的 s3cmd)、 Git 大文件存储 、 Git 附件 和 dat 。 目前默认情况下，我们要求一个 S3 存储桶并使用 AWS CLI 同步数据 data与服务器的文件夹。
 笔记本是用来探索和交流的
 
-和其他文学编程工具等笔记本包 Jupyter notebook 、 Beaker notebook 、 Zeppelin 对于探索性数据分析非常有效。 但是，这些工具在重现分析方面可能不太有效。 我们在工作中使用笔记本的时候，往往会细分 notebooks文件夹。 例如， notebooks/exploratory包含初步探索，而 notebooks/reports是更精致的作品，可以作为 html 导出到 reports目录。
+和其他文学编程工具等笔记本包 `Jupyter notebook `、 `Beaker notebook` 、 `Zeppelin` 对于探索性数据分析非常有效。 但是，这些工具在重现分析方面可能不太有效。 我们在工作中使用笔记本的时候，往往会细分 `notebooks`文件夹。 例如， `notebooks/exploratory`包含初步探索，而 `notebooks/reports`是更精致的作品，可以作为 `html` 导出到 `reports`目录。
 
-由于笔记本是源代码控制的挑战性对象（例如，差异 json通常不是人类可读的，合并几乎是不可能的），我们建议不要在 Jupyter notebooks 上直接与他人合作。 我们推荐两个有效使用笔记本的步骤：
+由于笔记本是源代码控制的挑战性对象（例如，差异 json通常不是人类可读的，合并几乎是不可能的），我们建议不要在 `Jupyter notebooks` 上直接与他人合作。 我们推荐两个有效使用笔记本的步骤：
 
-    遵循显示所有者和分析完成顺序的命名约定。我们使用格式 <step>-<ghuser>-<description>.ipynb（例如， 0.3-bull-visualize-distributions.ipynb).
+-   遵循显示所有者和分析完成顺序的命名约定。我们使用格式 `<step>-<ghuser>-<description>.ipynb`（例如， `0.3-bull-visualize-distributions.ipynb`).
 
-    重构好的部分。 不要编写代码在多个笔记本中执行相同的任务。 如果是数据预处理任务，就放到pipeline中 src/data/make_dataset.py并从加载数据 data/interim. 如果它是有用的实用程序代码，请将其重构为 src.
+-   重构好的部分。 不要编写代码在多个笔记本中执行相同的任务。 如果是数据预处理任务，就放到pipeline中 `src/data/make_dataset.py`并从加载数据 `data/interim`. 如果它是有用的实用程序代码，请将其重构为 `src`.
 
-现在默认情况下，我们将项目转换为 Python 包（请参阅 setup.py文件）。 您可以导入您的代码并在带有如下单元格的笔记本中使用它：
-
+现在默认情况下，我们将项目转换为 Python 包（请参阅 `setup.py`文件）。 您可以导入您的代码并在带有如下单元格的笔记本中使用它：
+```
 # OPTIONAL: Load the "autoreload" extension so that code can change
 %load_ext autoreload
 
@@ -154,41 +154,47 @@ $ conda install cookiecutter
 %autoreload 2
 
 from src.data import make_dataset
+```
 
-分析是有向无环图（ DAG ）
+### 分析是有向无环图[DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph)
 
-通常在分析中，您需要长时间运行的步骤来预处理数据或训练模型。 如果这些步骤已经运行（并且您已将输出存储在某处，例如 data/interim目录），您不想每次都等待重新运行它们。 我们喜欢 make用于管理相互依赖的步骤，尤其是长期运行的步骤。 Make 是基于 Unix 的平台上的常用工具（并且 可用于 Windows ）。 继 make文档 、 Makefile 约定 和 可移植性指南 将有助于确保您的 Makefile 跨系统有效工作。 下面 一些 示例 是 入门 。 许多数据人员使用 make作为他们选择的工具，包括 Mike Bostock 。
+通常在分析中，您需要长时间运行的步骤来预处理数据或训练模型。 如果这些步骤已经运行（并且您已将输出存储在某处，例如 `data/interim`目录），您不想每次都等待重新运行它们。 我们喜欢` make`用于管理相互依赖的步骤，尤其是长期运行的步骤。 `Make` 是基于 Unix 的平台上的常用工具（并且 可用于 Windows ）。 继 `make`文档 、 `Makefile` 约定 和 可移植性指南 将有助于确保您的 Makefile 跨系统有效工作。 下面 一些 示例 是 入门 。 许多数据人员使用 `make`作为他们选择的工具，包括 Mike Bostock 。
 
 还有其他用于管理 DAG 的工具，它们是用 Python 而不是 DSL 编写的（例如 Paver 、 Luigi 、 Airflow 、 Snakemake 、 Ruffus 或 Joblib ）。 如果它们更适合您的分析，请随意使用它们。
-从环境开始构建
+
+### 从环境开始构建
 
 重现分析的第一步始终是重现运行它的计算环境。您需要相同的工具、相同的库和相同的版本才能使所有内容很好地协同工作。
 
-一种有效的方法是使用 virtualenv （我们推荐使用 virtualenvwrapper 来管理 virtualenvs）。 通过在存储库中列出您的所有需求（我们包括一个 requirements.txt文件），您可以轻松跟踪重新创建分析所需的包。 这是一个很好的工作流程：
+一种有效的方法是使用 `virtualenv` （我们推荐使用 `virtualenvwrapper` 来管理 `virtualenvs`）。 通过在存储库中列出您的所有需求（我们包括一个 `requirements.txt`文件），您可以轻松跟踪重新创建分析所需的包。 这是一个很好的工作流程：
 
-    跑 mkvirtualenv创建新项目时
-    pip install您的分析需要的包
-    跑 pip freeze > requirements.txt固定用于重新创建分析的确切包版本
-    如果你发现你需要安装另一个包，运行 pip freeze > requirements.txt再次将更改提交到版本控制。
+1. 跑 `mkvirtualenv`创建新项目时
+2. `pip install`您的分析需要的包
+3. 跑 `pip freeze > requirements.txt`固定用于重新创建分析的确切包版本
+4. 如果你发现你需要安装另一个包，运行 `pip freeze > requirements.txt` 再次将更改提交到版本控制。
 
-如果您对重新创建环境有更复杂的要求，请考虑使用基于虚拟机的方法，例如 Docker 或 Vagrant 。 这两种工具都使用基于文本的格式（分别是 Dockerfile 和 Vagrantfile），您可以轻松地将其添加到源代码管理中，以描述如何创建具有所需要求的虚拟机。
+如果您对重新创建环境有更复杂的要求，请考虑使用基于虚拟机的方法，例如 `Docker` 或 `Vagrant` 。 这两种工具都使用基于文本的格式（分别是 `Dockerfile` 和 `Vagrantfile`），您可以轻松地将其添加到源代码管理中，以描述如何创建具有所需要求的虚拟机。
 将秘密和配置置于版本控制之外
 
-您 真的 不想在 Github 上泄露您的 AWS 密钥或 Postgres 用户名和密码。 说得够多了——请参阅关于这一点的 十二因素应用程序 原则。 这是执行此操作的一种方法：
-将您的秘密和配置变量存储在一个特殊文件中
+您 真的 不想在 `Github` 上泄露您的 `AWS` 密钥或 `Postgres` 用户名和密码。 说得够多了——请参阅关于这一点的 十二因素应用程序 原则。 这是执行此操作的一种方法：
 
-创建一个 .env项目根文件夹中的文件。 非常感谢 .gitignore，此文件永远不应提交到版本控制存储库中。 这是一个例子：
+#### 将您的秘密和配置变量存储在一个特殊文件中
 
-# example .env file
+创建一个 `.env`项目根文件夹中的文件。 非常感谢 `.gitignore`，此文件永远不应提交到版本控制存储库中。 这是一个例子：
+
+```nohighlight
+# 示例 .env文件 
 DATABASE_URL=postgres://username:password@localhost:5432/dbname
 AWS_ACCESS_KEY=myaccesskey
 AWS_SECRET_ACCESS_KEY=mysecretkey
 OTHER_VARIABLE=something
+```
 
-使用包自动加载这些变量。
+#### 使用包自动加载这些变量。
 
-如果您查看中的存根脚本 src/data/make_dataset.py，它使用一个名为 python-dotenv 的包将此文件中的所有条目加载为环境变量，以便可以访问它们 os.environ.get. 这是改编自 python-dotenv文档：
+如果您查看中的存根脚本 `src/data/make_dataset.py`，它使用一个名为 `python-dotenv` 的包将此文件中的所有条目加载为环境变量，以便可以访问它们 `os.environ.get`。 这是改编自 `python-dotenv`文档：
 
+```python
 # src/data/dotenv_example.py
 import os
 from dotenv import load_dotenv, find_dotenv
@@ -201,11 +207,13 @@ load_dotenv(dotenv_path)
 
 database_url = os.environ.get("DATABASE_URL")
 other_variable = os.environ.get("OTHER_VARIABLE")
+```
 
-AWS CLI 配置
+#### AWS CLI 配置
 
 使用 Amazon S3 存储数据时，管理 AWS 访问的一种简单方法是将访问密钥设置为环境变量。 然而，在一台机器上管理多组密钥（例如，在处理多个项目时）最好使用 凭证文件 ，通常位于 ~/.aws/credentials. 一个典型的文件可能如下所示：
 
+```
 [default]
 aws_access_key_id=myaccesskey
 aws_secret_access_key=mysecretkey
@@ -213,14 +221,18 @@ aws_secret_access_key=mysecretkey
 [another_project]
 aws_access_key_id=myprojectaccesskey
 aws_secret_access_key=myprojectsecretkey
+```
 
 您可以在初始化项目时添加配置文件名称； 假设没有设置适用的环境变量，默认情况下将使用配置文件凭据。
-在更改默认文件夹结构时要保守
+
+### 在更改默认文件夹结构时要保守
 
 为了使这种结构广泛适用于许多不同类型的项目，我们认为最好的方法是自由地更改项目周围的文件夹 ， 的默认结构时要保守。 但在更改所有 项目
 
 我们 创建了一个文件夹布局 专门针对建议添加、删除、重命名或移动文件夹的问题 标签。 更一般地说，我们还 创建了一个需求讨论标签。 为在实施之前应该进行仔细讨论和广泛支持的问题
-贡献
+
+
+## 贡献
 
 Cookiecutter 数据科学项目固执己见，但不怕犯错。 最佳实践不断变化，工具不断发展，经验教训不断汲取。 该项目的目标是使开始、构建和共享分析变得更加容易。 拉取请求 和 归档问题 鼓励 。 我们很想听听什么对您有用，什么不适合您。
 
@@ -229,9 +241,9 @@ Cookiecutter 数据科学项目固执己见，但不怕犯错。 最佳实践不
 
 项目结构和可重复性在 R 研究社区中讨论得更多。 如果您在 R 中工作，这里有一些项目和博客文章可能会对您有所帮助。
 
-    项目模板 - 一个 R 数据分析模板
-    “ 设计项目” Nice R 代码上的
-    “ 我的研究工作流程” Carlboettiger.info 上的
-    组织 计算生物学项目的快速指南” PLOS Computational Biology 中的“
+- 项目模板 - 一个 R 数据分析模板
+- “ 设计项目” Nice R 代码上的
+- “ 我的研究工作流程” Carlboettiger.info 上的
+- 组织 计算生物学项目的快速指南” PLOS Computational Biology 中的“
 
 最后，非常感谢 Cookiecutter 项目 ( github )，它帮助我们所有人花更少的时间思考和编写样板文件，将更多的时间用于完成工作。 
