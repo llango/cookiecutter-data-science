@@ -9,4 +9,4 @@ theme: shadocs
 extra_css:
   - css/extra.css
 pages:
-  - Home: index.md
+  - 首页: index.md
